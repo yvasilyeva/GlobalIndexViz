@@ -10,7 +10,9 @@ def get_db_session(engine):
 	session=Session()
 	return session
 
-def fill_country_table(session, countries_dict):
+session=get_db_session(engine)
+
+def fill_country_table(countries_dict):
 	for country_id in countries_dict:
 		country_exists=session.query(Country).filter(Country.id==country_id).count()
 		if not country_exists:
@@ -20,9 +22,9 @@ def fill_country_table(session, countries_dict):
 			country=Country(id=c_id,code=code,name=name)
 			session.add(country)
 			session.commit()
-			session.close()
+			
 
-def fill_index_table(session, index_name, i_id=None):
+def fill_index_table(index_name, i_id=None):
 	index_exists=session.query(Index).filter(Index.name==index_name).count()
 	if not index_exists:
 		name=index_name
@@ -33,20 +35,12 @@ def fill_index_table(session, index_name, i_id=None):
 			index=Index(name=name)
 		session.add(index)
 		session.commit()
-		session.close()	
 
-def get_index_id(session, index_name):
-	index_id=session.query(Index).filter(Index.name==index_name).first().id
-	return index_id
-
-def get_country_id(session,country_name):
-	country_id=session.query(Country).filter(Country.name==country_name).first().id
-	return country_id
 
 # dict: 'Honduras': [2018, 77.26]
-def fill_index_value_table(session,dict,index_name):
+def fill_index_value_table(dict,index_name):
 	for country in dict:
-		c_id=get_country_id(session,country)
+		c_id=get_country_id(country)
 		i_id=get_index_id(session, index_name)
 		y=dict.get(country)[0]
 		record_exists=session.query(Index_value).filter(and_(Index_value.country_id==c_id,Index_value.index_id==i_id,Index_value.year==y)).count()
@@ -55,11 +49,9 @@ def fill_index_value_table(session,dict,index_name):
 			value=dict.get(country)[1], index_id=i_id)
 			session.add(index_value)
 			session.commit()
-			session.close()
-
+	
 
 if __name__ == '__main__':
-	session=get_db_session(engine)
 	isocountries=get_country_dict()
 	fill_country_table(session, isocountries)
 	fsi_index=get_fsi_index_dictionary('2018')
@@ -67,9 +59,9 @@ if __name__ == '__main__':
 	fill_index_value_table(session,fsi_index,fsi_index_name)
 
 	hdi_id=get_hdi_index_id(hdi_index_name)
-	print('===============',hdi_id)
 	fill_index_table(session,hdi_index_name, i_id=hdi_id)
 	#2017 is string as I consider user input as string
-	#I cast it to str inside the function
 	hdi_index=get_hdi_index_dictionary('2017', hdi_id)
 	fill_index_value_table(session,hdi_index,hdi_index_name)
+	
+	session.close()
