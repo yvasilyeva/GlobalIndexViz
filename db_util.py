@@ -26,7 +26,6 @@ def get_available_indexes_names():
 	return index_dict
 #returns from database list of all countries and its codes	 	
 def get_all_countries():
-	print("we are inside")
 	country_dic=dict()
 	for country in session.query(Country).all():
 		country_dic[country.name]=[country.id, country.code]
@@ -59,7 +58,6 @@ def get_index_values(index_id,year,countries_ids):
 			Index_value.index_id==index_id,
 			Index_value.year==year, 
 			Index_value.country_id.in_(countries_ids))).all()
-	print(index_values.count)
 	for index_value in index_values:
 		country_name, country_id, country_code=get_country_info(index_value.country_id)
 		values_dict[country_name]=[index_value.value, country_code]
@@ -70,7 +68,6 @@ def get_best_worst_index_value(index_name,index_id, year):
 			Index_value.index_id==index_id,
 			Index_value.year==year)).all()
 	values=[index_value.value for index_value in index_values]
-	print(values)
 	if index_name==fsi_index_name:
 		#best=min
 		return min(values), max(values)
@@ -96,13 +93,15 @@ def get_country_info_for_value(index_id, index_value, year):
 
 
 if __name__ == '__main__':
-	print([value[1] for value in get_all_countries().values()])
-	all_countries_names=get_all_countries().keys()
-	print(all_countries_names)
+	#print([value[1] for value in get_all_countries().values()])
+	#all_countries_names=get_all_countries().keys()
+	#print(all_countries_names)
 	#print(get_available_indexes_names())
 	#print(get_all_countries())
 	#print(get_index_countries_info(1))
 	#print(get_index_years(1))
 	#print(get_index_values(1,2018,[4,12,16,56]).keys())
 	#print(get_best_worst_index_value('FRAGILE STATES INDEX',1, 2018))
-	#print(get_country_info_for_value(1, 55.34, 2018))	
+	#print(get_country_info_for_value(1, 55.34, 2018))
+	print(type(get_index_id("Human Development Index (HDI)")), get_index_id("Human Development Index (HDI)"))
+	session.close()

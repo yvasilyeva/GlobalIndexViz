@@ -2,3 +2,8 @@
 *.log
 env/
 .ipynb_checkpoints/
+*.png
+*.ipynb
+__pycache__/
+*.pyc
+*.db

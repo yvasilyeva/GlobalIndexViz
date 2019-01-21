@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, Date,Float
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-engine = create_engine('sqlite:///gl_index_data.db', echo=True)
+engine = create_engine('sqlite:///gl_index_data.db', echo=False, connect_args={'check_same_thread':False})
 Base = declarative_base()
 
 #create table classes 
