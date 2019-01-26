@@ -51,6 +51,14 @@ def get_index_years(index_id):
 		 if index_value.year not in years:
 		 	years.append(index_value.year)
 	return years
+	
+def get_index_value(index_id,year,country_id):
+	index_value=session.query(Index_value).filter(and_(
+			Index_value.index_id==index_id,
+			Index_value.year==year, 
+			Index_value.country_id==country_id)).first()
+	return index_value.value
+
 
 def get_index_values(index_id,year,countries_ids):
 	values_dict=dict()

@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 from fsi import fsi_index_name
 from hdi import hdi_index_name
-from db_util import get_available_indexes_names,get_all_countries,get_index_years,get_index_countries_info,get_index_values,get_best_worst_index_value,get_country_info_for_value,get_index_id,get_country_id
+from db_util import get_index_value, get_available_indexes_names,get_all_countries,get_index_years,get_index_countries_info,get_index_values,get_best_worst_index_value,get_country_info_for_value,get_index_id,get_country_id
 
 import plotly.graph_objs as go
 
@@ -64,11 +64,16 @@ year_dropdown=html.Div(
 	),
 	className= 'col-3'
 )
-show_button=html.Button(
-	id='show-button', 
-	children='Show',
-	n_clicks=0,
-	className='clo-3 btn btn-outline-primary'
+show_button=html.Div(
+	[
+		html.Button(
+		id='show-button', 
+		children='Show',
+		n_clicks=0,
+		className='btn btn-block btn-outline-primary'
+		),
+	],
+	className='col-3'
 	)
 index_barchart=html.Div(
 	dcc.Graph(
@@ -79,8 +84,19 @@ index_barchart=html.Div(
 		# 	'layout' : layout
 		# },
 	),
-	className='col-5'
+	className='col-6'
 )
+line_chart=html.Div(
+	dcc.Graph(
+		id='line-chart',
+		#will be returned by callback function
+		 # figure={
+		 # 	'data' : data,
+		 # 	'layout' : layout
+		 # },
+	),
+	className='col-6'
+)             
 index_map=html.Div(
 	dcc.Graph(
 		id='map-box',
@@ -89,7 +105,7 @@ index_map=html.Div(
 		# 	'layout' : map_layout
 		# },
 	),
-	className='col-7'
+	className='col'
 )
 
 app.layout=html.Div(children=[
@@ -101,7 +117,7 @@ app.layout=html.Div(children=[
          ),
 
 	 html.Div(children='''
-	 	Visualization of relatad to GCERF global indices.
+	 	Visualization of global indeces related to GCERF.
 	 	''',
 	 	style={
          'textAlign': 'center',
@@ -115,37 +131,34 @@ app.layout=html.Div(children=[
 	 		country_dropdown,
 	 		year_dropdown,
 	 		show_button,
-	 	],
-	 		className ='row'
-	 		
+	 		],
+	 		className ='row'	
 	 	),
 	 	html.Div(
 	 		[index_barchart,
-	 		index_map],
-	 		className='row'
-	 	)
+	 		line_chart,
+	 		],
+	 		id='charts-div',
+	 		className='row',
+			style={'visibility':'hidden'}
+		)
 	 	],
-
 	 	style={
-	 	# 'className' : 'container-fluid',
 	 	'padding': 30,
-	 	'className' :'container-fluid'
 	 	}
-	 	#className='container-fluid'
+	 	
 	 ),
 
-# 	html.Div(
-# 		[html.Div(
-# 	 		[index_barchart,
-# 	 		index_map],
-# 	 	)
-# 	 	className='row',
-# 	 	],
-# 	 	id='charts-div',
-# 	 	className='row',
-# 	 	style={'visibility':'hidden'}
-# 	 ),
- ])
+	 html.Div(
+	 		[
+	 		index_map],
+	 		id='map-div',
+	 		#className='row',
+			style={'visibility':'hidden','position': 'center'}
+	 	)
+ ],
+ className='container-fluid'
+ )
 @app.callback(
      Output(component_id='country-dropdown', component_property='options'),
      [Input(component_id='index-dropdown', component_property='value')]
@@ -229,6 +242,7 @@ def draw_best_score_ref_line(n_clicks, index_name,countries_list,year):
 			   name=False,
 			   showlegend=False,
 			   orientation='h',
+			   opacity = 0.8,
 			   text = [(c, v) for c,v in zip(x,y)],
 	           hoverinfo='text',
 	           marker=dict(
@@ -244,7 +258,7 @@ def draw_best_score_ref_line(n_clicks, index_name,countries_list,year):
 			worst_score_ref
 		]
 
-		layout=go.Layout({'title': index_name,
+		layout=go.Layout({'title': "{} {}".format(index_name.lower().capitalize(), year),
 			'yaxis':{
 				'zeroline': False,
 				'tickmode': 'array', 
@@ -336,12 +350,12 @@ def draw_index_map(n_clicks, index_name,countries_list,year):
 		            ) ),
 		        colorbar = dict(
 		            #autotick = False,
-		            #ticks="outside",
+		            ticks="outside",
 		            title = 'Index Value'),
 		    )
 
 		map_layout = go.Layout(
-		    title = index_name,
+		    title ='{} {}'.format(index_name.lower().capitalize(), 'country location'),
 		    geo = dict(
 		        showframe = False,
 		        showcoastlines = False,
@@ -349,7 +363,9 @@ def draw_index_map(n_clicks, index_name,countries_list,year):
 		            type = 'mercator'
 		        )
 		    ),    
-		    autosize=True   
+		    #autosize=True,
+		    width =800,
+		    height=600   
 		    
 		)
 		figure={
@@ -358,6 +374,47 @@ def draw_index_map(n_clicks, index_name,countries_list,year):
 			 }
 		return figure
 	return None		 
+
+@app.callback(Output('map-div', 'style'),
+               [Input('show-button', 'n_clicks')])
+def show_map_div(n_clicks):
+	if n_clicks:
+		return {'visibility':'visible'}
+	return 	{'visibility':'hidden'}
+
+@app.callback(Output('line-chart', 'figure'),
+              [Input('show-button', 'n_clicks')],
+              [State('index-dropdown', 'value'),
+               State('country-dropdown', 'value'),
+              ])
+def draw_line_chart(n_clicks, index_name,countries_list):
+	if index_name:
+		index_id=get_index_id(index_name)
+		years=sorted(get_index_years(index_id))       
+		country_year_index=dict()
+		for cname in countries_list:
+			country_year_index[cname]={}
+			c_id=get_country_id(cname)
+			for year in years:
+				index_value=get_index_value(index_id, year, c_id)
+				country_year_index[cname][year]=index_value		
+		#{'c1': {2011: 1, 2012: 1, 2013: 1, 2014: 1, 2017: 1}, 'c2': {2011: 1, 2012: 1, 2013: 1, 2014: 1, 2017: 1}, }
+		data=[]
+		for c_name, y_v_dict in country_year_index.items():
+			trace = go.Scatter(
+			x = [key for key in y_v_dict.keys()],
+			dx=1,
+			y = [value for value in y_v_dict.values()],
+			mode = 'lines+markers',
+			name = c_name
+			)
+			data.append(trace)
+		layout=go.Layout(title='{} {}'.format(index_name.lower().capitalize(), 'dynamics'),
+			xaxis= {'tickformat':'d'})                 
+		figure={'data': data,
+				'layout': layout
+				}
+		return figure
 
 @app.callback(Output('charts-div', 'style'),
                [Input('show-button', 'n_clicks')])
@@ -368,8 +425,7 @@ def show_charts_div(n_clicks):
 
 if __name__=='__main__':
 	app.run_server(debug=True)
-		
-	
+
 
 	
 

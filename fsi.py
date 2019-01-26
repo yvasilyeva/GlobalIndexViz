@@ -1,7 +1,8 @@
 from util import get_response, write_data, rename_country_to_iso_name
 import pandas as pd
 to_file = 'fsi-{}.xlsx'
-index_url='http://fundforpeace.org/fsi/wp-content/uploads/{}/04/fsi-{}.xlsx'
+#index_url='http://fundforpeace.org/fsi/wp-content/uploads/{}/04/fsi-{}.xlsx'
+index_url='http://fundforpeace.org/fsi/wp-content/uploads/data/fsi-{}.xlsx'
 fsi_index_name="FRAGILE STATES INDEX"
 def get_fsi_index_dictionary(year):
 	
@@ -20,7 +21,8 @@ def get_fsi_index_dictionary(year):
 	 'North Korea', 'Russia', 'Slovak Republic', 'South Korea', 'Swaziland', 
 	'Syria', 'Tanzania', 'United Kingdom', 'United States', 'Venezuela', 'Vietnam']
 
-	response=get_response(index_url.format(year,year))
+	#response=get_response(index_url.format(year,year))
+	response=get_response(index_url.format(year))
 	fsi_data=response.content
 	data_file=write_data(to_file.format(year),fsi_data)    
 

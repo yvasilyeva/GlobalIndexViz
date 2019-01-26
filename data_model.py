@@ -34,7 +34,7 @@ class Index_value(Base):
     index_id = Column(Integer, ForeignKey('index.id'))
     country_id=Column(Integer, ForeignKey('country.id'))
     def __repr__(self):
-        return "<Index_value(value='%s', year='%s',country_id='%s', index_id='%s')>" %(self.name, self.id)
+        return "<Index_value(value='%s', year='%s',country_id='%s', index_id='%s')>" %(self.value, self.year,self.country_id, self.id)
 
 class Indicator(Base):
     __tablename__ = 'indicator'

@@ -19,4 +19,4 @@ def write_data(to_file, data):
 def rename_country_to_iso_name(countries_to_rename, iso_names, index_dict):
     for old_name, name in zip(countries_to_rename,iso_names):
         index_dict[name] = index_dict.pop(old_name)
-    return index_dict    
+    return index_dict

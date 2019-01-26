@@ -12,6 +12,14 @@ def get_db_session(engine):
 
 session=get_db_session(engine)
 
+def get_country_id(country_name):
+	country_id=session.query(Country).filter(Country.name==country_name).first().id
+	return country_id
+
+def get_index_id(index_name):
+	index_id=session.query(Index).filter(Index.name==index_name).first().id
+	return index_id	
+
 def fill_country_table(countries_dict):
 	for country_id in countries_dict:
 		country_exists=session.query(Country).filter(Country.id==country_id).count()
@@ -41,7 +49,7 @@ def fill_index_table(index_name, i_id=None):
 def fill_index_value_table(dict,index_name):
 	for country in dict:
 		c_id=get_country_id(country)
-		i_id=get_index_id(session, index_name)
+		i_id=get_index_id(index_name)
 		y=dict.get(country)[0]
 		record_exists=session.query(Index_value).filter(and_(Index_value.country_id==c_id,Index_value.index_id==i_id,Index_value.year==y)).count()
 		if not record_exists:
@@ -52,16 +60,17 @@ def fill_index_value_table(dict,index_name):
 	
 
 if __name__ == '__main__':
-	isocountries=get_country_dict()
-	fill_country_table(session, isocountries)
-	fsi_index=get_fsi_index_dictionary('2018')
-	fill_index_table(session, fsi_index_name,None)
-	fill_index_value_table(session,fsi_index,fsi_index_name)
+	# isocountries=get_country_dict()
+	# fill_country_table(session, isocountries)
+	fsi_index=get_fsi_index_dictionary('2013')
+	fill_index_table(fsi_index_name,None)
+	fill_index_value_table(fsi_index,fsi_index_name)
 
-	hdi_id=get_hdi_index_id(hdi_index_name)
-	fill_index_table(session,hdi_index_name, i_id=hdi_id)
-	#2017 is string as I consider user input as string
-	hdi_index=get_hdi_index_dictionary('2017', hdi_id)
-	fill_index_value_table(session,hdi_index,hdi_index_name)
+	# hdi_id=get_hdi_index_id(hdi_index_name)
+	# print(hdi_id)
+	# fill_index_table(hdi_index_name, i_id=hdi_id)
+	# #2017 is string as I consider user input as string
+	# hdi_index=get_hdi_index_dictionary('2016', hdi_id)
+	# fill_index_value_table(hdi_index,hdi_index_name)
 	
 	session.close()
