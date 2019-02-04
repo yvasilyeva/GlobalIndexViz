@@ -5,20 +5,13 @@ from country import get_country_dict
 from fsi import get_fsi_index_dictionary, fsi_index_name
 from hdi import get_hdi_index_dictionary, hdi_index_name, get_hdi_index_id
 from datetime import date
+
 def get_db_session(engine):	
 	Session = sessionmaker(bind=engine)
 	session=Session()
 	return session
 
 session=get_db_session(engine)
-
-def get_country_id(country_name):
-	country_id=session.query(Country).filter(Country.name==country_name).first().id
-	return country_id
-
-def get_index_id(index_name):
-	index_id=session.query(Index).filter(Index.name==index_name).first().id
-	return index_id	
 
 def fill_country_table(countries_dict):
 	for country_id in countries_dict:
@@ -48,8 +41,8 @@ def fill_index_table(index_name, i_id=None):
 # dict: 'Honduras': [2018, 77.26]
 def fill_index_value_table(dict,index_name):
 	for country in dict:
-		c_id=get_country_id(country)
-		i_id=get_index_id(index_name)
+		c_id=session.query(Country).filter(Country.name==country).first().id
+		i_id=session.query(Index).filter(Index.name==index_name).first().id
 		y=dict.get(country)[0]
 		record_exists=session.query(Index_value).filter(and_(Index_value.country_id==c_id,Index_value.index_id==i_id,Index_value.year==y)).count()
 		if not record_exists:
@@ -62,7 +55,11 @@ def fill_index_value_table(dict,index_name):
 if __name__ == '__main__':
 	# isocountries=get_country_dict()
 	# fill_country_table(session, isocountries)
-	fsi_index=get_fsi_index_dictionary('2013')
+	fsi_index=get_fsi_index_dictionary('2012')
+	if not fsi_index:
+		print("Index dictionary is empty")
+		session.close()
+		exit()
 	fill_index_table(fsi_index_name,None)
 	fill_index_value_table(fsi_index,fsi_index_name)
 

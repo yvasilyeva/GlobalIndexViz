@@ -34,11 +34,12 @@ def get_hdi_index_dictionary(year,index_id):
 	result=get_response(index_data_url)
 	json_data=result.json()
 	country_score=dict()
-	if index_id:
-		for country_data in json_data:
-			if country_data.get('id')==index_id:
-				if country_data.get('year')==year:
-					country_score[country_data.get('country')]=[year, round(country_data.get('value'),2)]
+	if not index_id:
+		return country_score
+	for country_data in json_data:
+		if country_data.get('id')==index_id:
+			if country_data.get('year')==year:
+				country_score[country_data.get('country')]=[year, round(country_data.get('value'),2)]
 	country_score=rename_country_to_iso_name(countries_to_rename, iso_names, country_score)				
 	return  country_score
 

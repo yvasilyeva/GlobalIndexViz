@@ -1,14 +1,15 @@
 import requests
 #returns hhtp response
-def get_response(from_url):
+def get_response(from_url, ignore_404=False):
     try:
         result=requests.get(from_url)
+        if(result.status_code==404 and ignore_404):
+            return result
         result.raise_for_status()
-        data=result.content
-        return result
+        return result    
     except(requests.RequestException, ValueError):
         print("Network error. Impossible to access data source")
-        return False
+        return
 #returns file name    
 def write_data(to_file, data):
     #check that data are not empty
