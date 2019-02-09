@@ -1,0 +1,64 @@
+RANK,COUNTRY,SCORE,,,,,,,,,
+1,Iceland,1.192,11,Finland,1.429,21,Netherlands,1.541,31,Romania,1.649
+2,Denmark,1.246,12,Ireland,1.433,22,Poland,1.557,32,Latvia,1.68
+3,Austria,1.278,13,Bhutan,1.445,23,Mauritius,1.559,33,Costa Rica,1.699
+4,New Zealand,1.287,14,Sweden,1.461,24,Slovakia,1.603,34,Qatar,1.716
+5,Portugal,1.356,15,Australia,1.465,25,Spain,1.604,35,Uruguay,1.726
+6,Czech Republic,1.36,16,Germany,1.486,26,Croatia,1.633,36,Estonia,1.732
+7,Switzerland,1.37,17,Norway,1.5,27,Chile,1.635,37,Lithuania,1.735
+8,Canada,1.388,18,Belgium,1.528,28,Botswana,1.639,38,Madagascar,1.763
+9,Japan,1.395,19,Hungary,1.534,29,Bulgaria,1.646,39,Italy,1.774
+10,Slovenia,1.408,20,Singapore,1.535,30,Malaysia,1.648,40,Zambia,1.783
+79,Gabon ,2.033,90,Swaziland,2.074,101,Uganda,2.148,111,Honduras,2.237
+80,Paraguay ,2.037,91,Morocco,2.086,101,Guinea,2.148,111,El Salvador,2.237
+81,Bolivia,2.038,92,The Gambia,2.091,103,United States of,2.154,113,Niger,2.239
+82,Greece,2.044,92,Jamaica,2.091,,,,,,
+,,,,,,104,Cambodia,2.161,114,Republic of the Congo,2.249
+83,Bangladesh 2.045,,94,Macedonia (FYR),2.092,,,,,,
+,,,,,,105,Brazil,2.176,115,Myanmar,2.256
+84,Trinidad and Tobago 2.056,,95,Guyana,2.105,,,,,,
+,,,,,,106,Belarus,2.202,116,Guinea-Bissau,2.264
+85,Georgia 2.057,,96,Jordan,2.127,,,,,,
+,,,,,,106,Turkmenistan,2.202,117,Guatemala,2.27
+85,Cuba 2.057,,97,Sri Lanka,2.133,,,,,,
+,,,,,,108,Algeria,2.213,118,Cote d’ Ivoire,2.279
+85,Peru 2.057,,98,Angola,2.14,,,,,,
+,,,,,,109,Uzbekistan,2.216,119,Ethiopia,2.284
+88,Burkina Faso 2.063,,99,Papua New Guinea,2.143,,,,,,
+,,,,,,110,Armenia,2.218,,China,2.288
+89,Haiti 2.066,,99,Dominican Republic,2.143,,,,120,,
+41,Taiwan 1.787,,51,Kuwait,1.842,60,Bosnia and,1.975,69,Nicaragua,1.915
+42,Indonesia 1.799,,52,Laos,1.852,,,,70,Senegal,1.978
+,,,,,,61,United Arab Emirates1.931,,,,
+43,Sierra Leone 1.805,,53,South Korea,1.858,,,,71,Cyprus,1.994
+,,,,,,62,Equatorial Guinea,1.94,,,
+44,Ghana 1.809,,54,Albania,1.867,,,,72,Benin,1.998
+,,,,,,63,Lesotho,1.941,,,
+45,Malawi 1.817,,55,Namibia,1.873,,,,72,Liberia,1.998
+,,,,,,64,Tunisia,1.949,,,
+46,France 1.829,,56,Timor-Leste,1.879,,,,74,Oman,2.016
+,,,,,,65,Moldova,1.953,,,
+47,United Kingdom 1.830,,57,Montenegro,1.884,,,,75,Kazakhstan,2.019
+,,,,,,66,Togo,1.954,,,
+48,Serbia 1.834,,58,Tanzania,1.899,,,,76,Ecuador,2.02
+,,,,,,67,Argentina,1.957,,,
+49,Panama 1.837,,59,Vietnam,1.906,,,,77,Kosovo,2.022
+,,,,,,68,Mozambique,1.963,,,
+50,Mongolia 1.838,,,,,,,,78,Nepal,2.026
+121,Djibouti,2.292,132,Bahrain,2.398,143,Venezuela 2.651,,154,Libya 3.200,
+122,Tajikistan,2.293,133,Iran,2.411,144,Israel 2.656,,155,Sudan 3.269,
+123,Mauritania,2.295,134,Azerbaijan,2.45,145,Turkey 2.710,,156,Ukraine 3.287,
+124,Kyrgyz Republic,2.297,135,Eritrea,2.46,146,Lebanon 2.752,,157,Central African 3.354Republic,
+125,Thailand,2.312,136,Chad,2.464,147,Colombia 2.764,,,,
+,,,,,,,,,158,Yemen 3.399,
+126,South Africa,2.316,137,Mali,2.489,148,Palestine 2.832,,,,
+,,,,,,,,,159,Somalia 3.414,
+127,Zimbabwe,2.322,138,Burundi,2.5,149,Nigeria 2.877,,,,
+,,,,,,,,,160,Afghanistan 3.538,
+128,Rwanda,2.323,139,Philippines,2.511,150,North Korea 2.944,,,,
+,,,,,,,,,161,Iraq 3.570,
+129,Saudi Arabia,2.338,140,Mexico,2.557,151,Russia 3.079,,,,
+,,,,,,,,,162,South Sudan 3.593,
+130,Cameroon,2.356,141,India,2.566,152,Democratic Republic  3.112of the Congo,,163,Syria 3.806,
+131,Kenya,2.379,142,Egypt,2.574,,,,,,
+,,,,,,153,Pakistan 3.145,,,,

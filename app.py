@@ -25,7 +25,6 @@ colors = {
 }
 #id : index_name
 index_names=get_available_indexes_names()
-
 index_dropdown=html.Div(
 	dcc.Dropdown(
 	id='index-dropdown',
@@ -50,8 +49,8 @@ country_dropdown=html.Div(
     value=[],
     multi=True,
     searchable=True,
-    clearable=False,
-    placeholder="Select a country..."
+    clearable=True,
+    placeholder="Select a country...",
     #to disable dropdown set an option
     #dsabled=True
 	),
@@ -60,7 +59,7 @@ country_dropdown=html.Div(
 year_dropdown=html.Div(
 	dcc.Dropdown(
 	id='year-dropdown',
-	placeholder="Select a year..."
+	placeholder="Select a year...",
 	#options will be added by call back function 
 	#options=[
 	#	{'label': year, 'value' : year} for year in years
@@ -206,9 +205,9 @@ app.layout=html.Div(children=[
  )
 def index_countries_values(index_name):
 	if not index_name:
-		return []
+		return []	
 	index_id=get_index_id(index_name)
-	index_countries_info=get_index_countries_info(index_id)
+	index_countries_info=get_index_countries_info(index_id)	
 	return [
 	{'label': country_name, 'value' : country_name}\
 	for country_name, info in index_countries_info.items()
@@ -220,7 +219,7 @@ def index_countries_values(index_name):
 )
 def index_years_values(index_name):
 	if not index_name:
- 		return []
+			return []
 	index_id=get_index_id(index_name)
 	years=get_index_years(index_id)
 	return [
@@ -242,7 +241,6 @@ def draw_best_score_ref_line(n_clicks, index_name,countries_list,year):
 	index_values_dic=get_index_values(index_id, year, countries_ids)
 	y=list(index_values_dic.keys())
 	x=[value[0] for value in index_values_dic.values()]
-
 	best_score, worst_score=get_best_worst_index_value(index_name,index_id, year)
 	best_score_countries_info_list=get_country_info_for_value(index_id, best_score, year)
 	worst_score_countries_info_list=get_country_info_for_value(index_id, worst_score, year)
@@ -326,7 +324,11 @@ def draw_best_score_ref_line(n_clicks, index_name,countries_list,year):
 			'layout' : layout
 		}
 	return figure
-
+@app.callback(Output('diff-year-dropdown', 'value'),
+	[Input('show-button', 'n_clicks')])
+def clear_year_diff(n_clicks):
+	if n_clicks:
+		return None
 
 @app.callback(Output('map-box', 'figure'),
   [Input('show-button', 'n_clicks')],
@@ -442,7 +444,7 @@ def draw_line_chart(n_clicks, index_name,countries_list):
 		c_id=get_country_id(cname)
 		for year in years:
 			index_value=get_index_value(index_id, year, c_id)
-			country_year_index[cname][year]=index_value		
+			country_year_index[cname][year]=index_value
 	#{'c1': {2011: 1, 2012: 1, 2013: 1, 2014: 1, 2017: 1}, 'c2': {2011: 1, 2012: 1, 2013: 1, 2014: 1, 2017: 1}, }
 	data=[]
 	for c_name, y_v_dict in country_year_index.items():
@@ -454,8 +456,13 @@ def draw_line_chart(n_clicks, index_name,countries_list):
 		name = c_name
 		)
 		data.append(trace)
+
 	layout=go.Layout(title='{} {}'.format(index_name.lower().capitalize(), 'dynamics'),
-		xaxis= {'tickformat':'d'})                 
+		xaxis= {'tickformat':'d',
+		'nticks': max([len(value) for value in country_year_index.values()]),
+		
+		# 'autorange':True
+		})                 
 	figure={'data': data,
 			'layout': layout
 			}
@@ -510,7 +517,7 @@ def show_diff_chart(n_clicks,diff_year,index_name,countries_list,year):
 		showlegend=False,
 		orientation='h',
 		opacity = 0.8,
-		text = [(c, "{:.0%}".format(v)) for c,v in y_diff.items()],
+		text = [(c, "{:.2%}".format(v)) for c,v in y_diff.items()],
 		hoverinfo='text',
 		marker=dict(
 		color=['#2d46ad' if val>=0 else '#bf0540' for val in y_diff.values()],
@@ -536,7 +543,7 @@ def show_diff_chart(n_clicks,diff_year,index_name,countries_list,year):
 		'xaxis':{
 			'zeroline': True,
 			'showline' : False,
-			'tickformat' : '0,.0%',
+			'tickformat' : '0,.1%',
 			#that is for showline
 			'linecolor' : '#878484',
 			#that is for showline

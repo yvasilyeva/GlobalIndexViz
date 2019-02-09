@@ -1,0 +1,43 @@
+RANK,COUNTRYSCORE,,CHANGE,,,,,,,,,,,,
+1,Iceland,1.111,,10,Japan,1.408, 1,21,Singapore,1.534, 2,31,Croatia,1.665, ↔
+2,New Zealand,1.241, 2,12,Australia,1.425, 3,22,Mauritius,1.547, 1,32,Latvia,1.67, ↔
+3,Portugal,1.258, 2,13,Bhutan,1.474, ↔,23,Spain,1.568, 2,33,Poland,1.676, 11
+4,Austria,1.265, 1,14,Norway,1.486, 3,24,Chile,1.595, 2,34,Costa Rica,1.701, 1
+5,Denmark,1.337, 3,15,Hungary,1.494, 5,25,Romania,1.6, 5,35,Uruguay,1.709, 1
+6,Czech Republic,1.36, ↔,16,Germany,1.5, ↔,26,Slovakia,1.611, 2,36,Estonia,1.712,
+7,Slovenia,1.364, 3,17,Finland,1.515, 6,27,Botswana,1.622, ↔,37,Lithuania,1.732,
+8,Canada,1.371, ↔,18,Sweden,1.516, 4,28,Bulgaria,1.631, ↔,38,Italy,1.737, 1
+9,Switzerland,1.373, 2,19,Belgium,1.525, 1,29,Malaysia,1.637, ↔,39,Sierra Leone,1.76, 4
+10,Ireland,1.408, 2,19,Netherlands,1.525, 2,30,Qatar,1.664, 5,40,Taiwan,1.782, 1
+RANK,COUNTRYSCORE,CHANGE,,,,,,,,,,,,,
+81,Guyana,2.021,12,91,Burkina Faso,2.07, 4,101,Uzbekistan,2.132, 8,111,Kyrgyz Republic,2.216,12
+82,Liberia,2.023,10,92,Jamaica,2.072, 1,102,Macedonia (FYR),2.133, 7,112,Armenia,2.22, 2
+83,Haiti,2.026, 5,93,Nepal,2.08,16,103,Belarus,2.141, 4,113,Rwanda,2.227,15
+84,Bangladesh,2.035, 2,94,Georgia,2.084, 2,104,Myanmar,2.179,10,114,United States,2.232,11
+84,Bosnia-Herzegovina,2.035,21,95,Jordan,2.087, 1,105,Uganda,2.182, 4,115,El Salvador,2.239, 3
+86,Bolivia,2.045, 6,96,Guinea,2.089, 6,106,Honduras,2.185, 5,116,China,2.242, 3
+87,Gabon,2.052, 9,97,Papua New Guinea,2.095, 1,107,Djibouti,2.196,14,117,Guatemala,2.245, 1
+88,Cuba,2.056, 5,97,Trinidad & Tobago,2.095,12,108,Brazil,2.199, 3,118,Tajikistan,2.263, 4
+89,Cambodia,2.065,15,99,Dominican Republic,2.114,,109,Algeria,2.201, 1,119,Turkmenistan,2.27,13
+90,Lesotho,2.066,28,100,Angola,2.116,,110,The Gambia,2.211,18,120,Thailand,2.286, 5
+41,United Kingdom,1.786, 6,51,France,1.839, 5,61,Eq. Guinea,1.93,,71,Peru,1.986,12
+41,Zambia,1.786, 1,52,Indonesia,1.85,10,62,Moldova,1.938, 2,72,Kazakhstan,1.992, 3
+43,Ghana,1.793, 1,53,Timor-Leste,1.866, 2,63,Togo,1.939, 2,73,Greece,1.998, 8
+44,Madagascar,1.797, 6,54,Tanzania,1.876, 3,64,Cyprus,1.94, 7,74,Nicaragua,2.002, 5
+45,Laos,1.8, 5,55,Argentina,1.88,12,65,UAE,1.944, 9,75,Morocco,2.004,15
+46,Mongolia,1.801, 3,56,Serbia,1.888, 3,66,Ecuador,1.948,10,76,Kosovo,2.007,10
+47,South Korea,1.823, 5,57,Albania,1.908, 1,67,Montenegro,1.95, 7,77,Swaziland,2.01,12
+48,Malawi,1.825, 3,58,Kuwait,1.909, 7,68,Paraguay,1.961,11,78,Mozambique,2.013,10
+49,Panama,1.835, 1,59,Vietnam,1.919, 1,69,Tunisia,1.977, 4,79,Benin,2.014, 6
+50,Namibia,1.838, 4,60,Senegal,1.929,10,70,Oman,1.983, 4,80,Sri Lanka,2.019,17
+121,Cote d' Ivoire,2.307, 4,132,Azerbaijan,2.426, 2,143,Venezuela,2.652, 1,154,Ukraine,3.184, 2
+122,Guinea-Bissau,2.309, 7,133,Saudi Arabia,2.474, 4,144,Israel,2.707, 1,155,Central African Rep.,3.213, 2
+123,South Africa,2.324,3,134,Ethiopia,2.477,16,145,Palestine,2.774, 3,155,Sudan,3.213,
+124,Rep of Congo,2.334,,135,Chad,2.495, 1,146,Colombia,2.777, 1,157,Libya,3.328, 3
+125,Kenya,2.336, 6,136,Eritrea,2.505, 1,146,Turkey,2.777, 1,158,Somalia,3.387, 1
+126,Niger,2.343,14,137,India,2.541, 4,148,Lebanon,2.782, 2,159,Yemen,3.412, 1
+127,Zimbabwe,2.352,,138,Philippines,2.555, 1,149,Nigeria,2.849,,160,South Sudan,3.524, 2
+128,Mauritania,2.355, 8,139,Egypt,2.583, 3,150,North Korea,2.967,,161,Iraq,3.556,
+129,Iran,2.364, 4,140,Mali,2.596, 3,151,Russia,3.047,,162,Afghanistan,3.567, 2
+130,Cameroon,2.39,,141,Burundi,2.641, 3,152,Pakistan,3.058, 1,163,Syria,3.814,
+131,Bahrain,2.404, 1,142,Mexico,2.646, 2,153,Dem. Rep. Congo,3.061, 1,,,,

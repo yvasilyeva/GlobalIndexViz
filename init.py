@@ -4,6 +4,9 @@ from sqlalchemy import and_
 from country import get_country_dict
 from fsi import get_fsi_index_dictionary, fsi_index_name
 from hdi import get_hdi_index_dictionary, hdi_index_name, get_hdi_index_id
+from gpi import get_gpi_index_dictionary, gpi_index_name
+from gpi_2017 import get_gpi_index_dictionary as get_gpi_index_dictionary17 , gpi_index_name as gpi_index_name17
+from gpi_2016 import get_gpi_index_dictionary as get_gpi_index_dictionary16 , gpi_index_name as gpi_index_name16
 from datetime import date
 
 def get_db_session(engine):	
@@ -54,14 +57,13 @@ def fill_index_value_table(dict,index_name):
 
 if __name__ == '__main__':
 	# isocountries=get_country_dict()
-	# fill_country_table(session, isocountries)
-	fsi_index=get_fsi_index_dictionary('2012')
-	if not fsi_index:
-		print("Index dictionary is empty")
-		session.close()
-		exit()
-	fill_index_table(fsi_index_name,None)
-	fill_index_value_table(fsi_index,fsi_index_name)
+	# fill_country_table(isocountries)
+	# fsi_index=get_fsi_index_dictionary('2012')
+	# if not fsi_index:
+	# 	session.close()
+	# 	exit("Index dictionary is empty")
+	# fill_index_table(fsi_index_name,None)
+	# fill_index_value_table(fsi_index,fsi_index_name)
 
 	# hdi_id=get_hdi_index_id(hdi_index_name)
 	# print(hdi_id)
@@ -70,4 +72,30 @@ if __name__ == '__main__':
 	# hdi_index=get_hdi_index_dictionary('2016', hdi_id)
 	# fill_index_value_table(hdi_index,hdi_index_name)
 	
+	# gpi_index=get_gpi_index_dictionary('2018')
+	# if not gpi_index:
+	# 	print("GPI Index dictionary is empty")
+	# 	session.close()
+	# 	exit()
+	# fill_index_table(gpi_index_name,None)
+	# fill_index_value_table(gpi_index,gpi_index_name)
+	#gpi_2017
+	# gpi_index=get_gpi_index_dictionary17('2017')
+	# if not gpi_index:
+	# 	print("GPI Index dictionary is empty")
+	# 	session.close()
+	# 	exit()
+	# fill_index_table(gpi_index_name17,None)
+	# fill_index_value_table(gpi_index,gpi_index_name17)
+
+	gpi_index=get_gpi_index_dictionary16('2016')
+	print(gpi_index)
+	if not gpi_index:
+		print("GPI Index dictionary is empty")
+		session.close()
+		exit()
+	print("IND name",gpi_index_name16)
+	fill_index_table(gpi_index_name16,None)
+	fill_index_value_table(gpi_index,gpi_index_name16)
+
 	session.close()

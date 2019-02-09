@@ -3,6 +3,7 @@ from init import session
 from sqlalchemy import and_
 from fsi import fsi_index_name
 from hdi import hdi_index_name
+from gpi import gpi_index_name
 
 def get_index_id(index_name):
     index_id=session.query(Index).filter(Index.name==index_name).first().id
@@ -80,6 +81,10 @@ def get_best_worst_index_value(index_name,index_id, year):
     if index_name==hdi_index_name:
         #best=max
         return max(values), min(values)
+    if index_name==gpi_index_name:
+        #best=max
+        return min(values), max(values)
+
 #returns a list of dictionaries
 def get_country_info_for_value(index_id, index_value, year):
     index_values=session.query(Index_value).filter(and_(
@@ -108,6 +113,10 @@ def get_percent_of_change(index_name, country_id, year_to_compare, year_actual):
     if index_name==hdi_index_name:
         #best=max
         return -percent_of_change
+    if index_name==gpi_index_name:
+        #best=max
+        return percent_of_change    
+        
 
 if __name__ == '__main__':
     #print([value[1] for value in get_all_countries().values()])
