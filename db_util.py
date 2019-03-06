@@ -1,18 +1,32 @@
-from data_model import engine,Country,Index, Index_value
-from init import session
+from data_model import engine,Country,Index, Index_value,Indicator,Indicator_value
+from data_model import session
 from sqlalchemy import and_
 from fsi import fsi_index_name
 from hdi import hdi_index_name
 from gpi import gpi_index_name
 
 def get_index_id(index_name):
-    index_id=session.query(Index).filter(Index.name==index_name).first().id
+    index_id_count=session.query(Index).filter(Index.name==index_name).count()
+    index_id=None
+    if index_id_count:
+        index_id=session.query(Index).filter(Index.name==index_name).first().id
     return index_id
+
+def get_indicator_id(indicator_name):
+    indicator_id_count=session.query(Indicator).filter(Indicator.name==indicator_name).count()
+    indicator_id=None
+    if indicator_id_count:
+        indicator_id=session.query(Indicator).filter(Indicator.name==indicator_name).first().id
+    return indicator_id
 
 def get_country_id(country_name):
     country_id=session.query(Country).filter(Country.name==country_name).first().id
     return country_id
-#returns: country_name : [id, code]
+
+def get_country_id_by_code(country_code):
+    country_id=session.query(Country).filter(Country.code==country_code).first().id
+    return country_id
+
 def get_country_info(country_id):
     country_info=dict()
     country=session.query(Country).filter(Country.id==country_id).first()

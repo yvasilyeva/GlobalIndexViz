@@ -1,5 +1,5 @@
-from data_model import engine, Country,Index, Index_value
-from sqlalchemy.orm import sessionmaker
+from data_model import engine, Country,Index, Index_value, \
+Indicator, Indicator_value, session
 from sqlalchemy import and_
 from country import get_country_dict
 from fsi import get_fsi_index_dictionary, fsi_index_name
@@ -7,14 +7,10 @@ from hdi import get_hdi_index_dictionary, hdi_index_name, get_hdi_index_id
 from gpi import get_gpi_index_dictionary, gpi_index_name
 from gpi_2017 import get_gpi_index_dictionary as get_gpi_index_dictionary17 , gpi_index_name as gpi_index_name17
 from gpi_2016 import get_gpi_index_dictionary as get_gpi_index_dictionary16 , gpi_index_name as gpi_index_name16
+from wgi import get_wgi_indicators_dict, WGI_INDEX_NAME as wgi_index_name
 from datetime import date
+from db_util import get_index_id,get_country_id,get_indicator_id,get_country_id_by_code
 
-def get_db_session(engine):	
-	Session = sessionmaker(bind=engine)
-	session=Session()
-	return session
-
-session=get_db_session(engine)
 
 def fill_country_table(countries_dict):
 	for country_id in countries_dict:
@@ -53,7 +49,42 @@ def fill_index_value_table(dict,index_name):
 			value=dict.get(country)[1], index_id=i_id)
 			session.add(index_value)
 			session.commit()
-	
+
+def fill_indicator_table(indicator_name,index_id):
+	#{'Voice and Accountability': {'Afghanistan': {'year': '2017', 'value': -0.99}} 
+    #'Rule of Law': {'Afghanistan': {'year': '2017', 'value': -1.57}}
+    indicator_exists=session.query(Indicator).filter(Indicator.name==indicator_name).count()
+    if not indicator_exists:
+    	indicator=Indicator(index_id=index_id,name=indicator_name)
+    	session.add(indicator)
+    	session.commit()
+
+def fill_indicator_value_table(ind_dict, index_name):
+	#{'Voice and Accountability': {'Afghanistan': {'year': '2017', 'value': -0.99}} 
+    #'Rule of Law': {'Afghanistan': {'year': '2017', 'value': -1.57}}
+	index_id=get_index_id(index_name)
+	if not index_id:
+		fill_index_table(index_name, i_id=None)
+		index_id=get_index_id(index_name)
+	for indicator in ind_dict.keys():
+		indicator_id=get_indicator_id(indicator)
+		if not indicator_id:
+			fill_indicator_table(indicator,index_id)
+			indicator_id=get_indicator_id(indicator)		
+		for info in ind_dict.values():
+			for country_code, value in info.items():
+				#print(country_code)
+				if not country_code or country_code=='ANT':
+					continue
+				country_id=get_country_id_by_code(country_code)
+				record_exists=session.query(Indicator_value).filter(and_(Indicator_value.country_id==country_id,
+					Indicator_value.index_id==indicator_id,Indicator_value.year==value['year'])).count()
+				if not record_exists:
+					indicator_value=Indicator_value(year=value['year'], value=value['value'],
+					index_id=indicator_id, country_id=country_id)
+					session.add(indicator_value)
+					session.commit()
+
 
 if __name__ == '__main__':
 	# isocountries=get_country_dict()
@@ -88,14 +119,15 @@ if __name__ == '__main__':
 	# fill_index_table(gpi_index_name17,None)
 	# fill_index_value_table(gpi_index,gpi_index_name17)
 
-	gpi_index=get_gpi_index_dictionary16('2016')
-	print(gpi_index)
-	if not gpi_index:
-		print("GPI Index dictionary is empty")
-		session.close()
-		exit()
-	print("IND name",gpi_index_name16)
-	fill_index_table(gpi_index_name16,None)
-	fill_index_value_table(gpi_index,gpi_index_name16)
+	# gpi_index=get_gpi_index_dictionary16('2016')
+	# print(gpi_index)
+	# if not gpi_index:
+	# 	print("GPI Index dictionary is empty")
+	# 	session.close()
+	# 	exit()
+	# fill_index_table(gpi_index_name16,None)
+	# fill_index_value_table(gpi_index,gpi_index_name16)
 
+	indicator_dictionary=get_wgi_indicators_dict('2013')
+	fill_indicator_value_table(indicator_dictionary, wgi_index_name)
 	session.close()

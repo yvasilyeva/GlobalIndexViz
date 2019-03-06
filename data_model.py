@@ -5,8 +5,18 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from config import DB_URL
 
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
+
 engine = create_engine(DB_URL, echo=False, connect_args={'check_same_thread':False})
 Base = declarative_base()
+
+def get_db_session(engine): 
+    Session = sessionmaker(bind=engine)
+    session=Session()
+    return session
+
+session=get_db_session(engine)
 
 #create table classes 
 class Country(Base):
@@ -52,7 +62,7 @@ class Indicator_value(Base):
     #autoincrement is automatically set to true for a primary key
     id = Column(Integer, primary_key=True)
     value = Column(Float)
-    year=Column(Date)
+    year=Column(Integer)
     index_id = Column(Integer, ForeignKey('indicator.id'))
     country_id=Column(Integer, ForeignKey('country.id'))
     def __repr__(self):
