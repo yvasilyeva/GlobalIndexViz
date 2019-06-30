@@ -1,4 +1,3 @@
-from tabula import read_pdf
 import pandas as pd
 from util import get_response, write_data, rename_country_to_iso_name
 import re
@@ -63,4 +62,4 @@ def get_gpi_index_dictionary(year):
 	return gpi_dictionary
 
 if __name__ == '__main__':
-	get_gpi_index_dictionary(year)
+	get_gpi_index_dictionary(2016)

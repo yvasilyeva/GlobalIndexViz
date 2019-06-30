@@ -36,4 +36,4 @@ def get_wgi_indicators_dict(year):
         ind_dict[ind_name]=get_wgi_indicator_dict(ind_id,year)
     return ind_dict
 if __name__ == '__main__':
-	print(get_wgi_indicators_dict('2016'))
+	print(get_wgi_indicators_dict('2018'))

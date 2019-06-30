@@ -3,7 +3,7 @@ from data_model import session
 from sqlalchemy import and_
 from fsi import fsi_index_name
 from hdi import hdi_index_name
-from gpi import gpi_index_name
+from gpi_2019 import gpi_index_name
 
 def get_index_id(index_name):
     index_id_count=session.query(Index).filter(Index.name==index_name).count()

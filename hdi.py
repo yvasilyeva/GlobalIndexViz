@@ -46,5 +46,5 @@ def get_hdi_index_dictionary(year,index_id):
 if __name__ == '__main__':
 	hdi_id=get_hdi_index_id(hdi_index_name)
 	print(hdi_id)
-	index_dic=get_hdi_index_dictionary('2013',hdi_id)
+	index_dic=get_hdi_index_dictionary('2018',hdi_id)
 	print(index_dic)
